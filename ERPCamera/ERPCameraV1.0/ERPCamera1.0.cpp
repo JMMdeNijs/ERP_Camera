@@ -13,7 +13,7 @@ Copyright (C), December 2018, Jan de Nijs
 
 *****************************************************************************************/
 
-#include "../ERPlib/erplib_1.0.h"
+#include "../erplib_1.0.h"
 
 
 int main(int argc,char **argv) {
