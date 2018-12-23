@@ -13,7 +13,6 @@ Copyright (C), December 2018, Jan de Nijs
 #undef Success
 #endif
 
-#include <thread>
 #include <vector>
 #include <iostream>
 #include <fstream>
@@ -55,13 +54,13 @@ struct WindowSegmentation {
 };
 
 
-void Demux(unsigned char *ptrMuxedImage, int imageSize[2], unsigned char *ptrImR);
-//demuxes the RGBA vectors into RGB channels of a CImg image
+void Demux(unsigned char *ptrMuxedImage, int const imageSize[2], unsigned char *ptrImR);
+//demuxes the RGBA vectors into RGB channels of the CImg image format
 
 std::string GetFile(void);
 //utility function to read folder and name ERP image
 
-SensorPose RotatedSensor(float phiWindow, float thetaWindow, float theta0, float phi0);
+SensorPose RotatedSensor(float const phiWindow, float const thetaWindow, float const theta0, float const phi0);
 //Calculation of vectors defining 3 corners of the sensor after rotation
 //phi0(azimuth) and theta0 (inclination) specify the normal of the sensor.
 //RotatedSensor.origin, RotatedSensor.leftTop and RotatedSensor.rightBottom specify the Euclidean vectors defining the sensor. 

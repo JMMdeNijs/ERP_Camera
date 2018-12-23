@@ -16,22 +16,23 @@ Jan de Nijs Copyright (C), December 2018
  
 *****************************************************************************************/
 
-#include "../ERPlib/erplib_2.0.h"
+#include "erplib_2.0.h"
 
  
 int main(int argc,char **argv) {
      
     //Get path and file image
-	std::string imDir(GetFile());
+	//std::string imDir(GetFile());
+	std::string imDir("/home/jan/Projects/ERPCamera/Laon_Cathedral.jpg");
      
     //Load equirectangle image
     CImg<unsigned char> inputImageChannels(&imDir[0]); //In CImg, RGB are stored in channels 
     CImgDisplay vcDisplay;
 	
 	//Specification of the width and height of the virtual outputImage and ERP image 
-	int outputImageSize[2] = {1024, 576};
-	int inputImageSize[2] = {inputImageChannels.width(), inputImageChannels.height()};
-	int inputSize = inputImageChannels.width() * inputImageChannels.height();
+	int const outputImageSize[2] = {1024, 576};
+	int const inputImageSize[2] = {inputImageChannels.width(), inputImageChannels.height()};
+	int const inputSize = inputImageChannels.width() * inputImageChannels.height();
 		
 	//Segmentation ERP image to reduce (half) memory demand global device memory
 	//Only half of the image will be loaded into the memory
@@ -61,19 +62,19 @@ int main(int argc,char **argv) {
 	std::string time_interval;
 	
 	//Colors to show information in display
-	unsigned char yellow[3] = {0, 255, 255}, black[3] = {0, 0, 0};
+	unsigned char const yellow[3] = {0, 255, 255}, black[3] = {0, 0, 0};
 	
 	//Camera parameters: pose and window and window utility parameters
 	float theta0(0.), phi0(0.), thetaWindow(M_PI*39.375/180), phiWindow(M_PI*70.0/180);
 	float thetaMax, thetaMin, thetaMaxPrevious, thetaMinPrevious;
-	float thetaWindowMax(M_PI*60/180);
+	float const thetaWindowMax(M_PI*60/180);
 	
 	//Declaration camera sensor pose in Euclidean coordinates
 	SensorPose sensor;
 	float	originSensor[3], incWidth[3], incHeight[3];
 	
 	//Declaration incTheta and incPhi
-	float resolutionInputImage[2] = {2*M_PI/inputImageSize[0], M_PI/inputImageSize[1]};
+	float const resolutionInputImage[2] = {2*M_PI/inputImageSize[0], M_PI/inputImageSize[1]};
 	
     
 	//Arrangements for parallelization code with OpenCL

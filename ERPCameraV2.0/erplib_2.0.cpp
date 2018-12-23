@@ -5,10 +5,10 @@
 Copyright (C), December 2018, Jan de Nijs
 ***************************************************************************************************************************/
  
-#include <erplib_2.0.h>
+#include "erplib_2.0.h"
 
 
-void Demux(unsigned char *ptrMuxedImage, int imageSize[2], unsigned char *ptrImR){
+void Demux(unsigned char *ptrMuxedImage, int const imageSize[2], unsigned char *ptrImR){
 	//demuxes the RGBA vectors into RGB channels of a CImg image
 	int sizeImage(imageSize[0]*imageSize[1]);	
 	unsigned char *ptrImG(ptrImR + sizeImage), *ptrImB(ptrImG + sizeImage);
@@ -40,7 +40,7 @@ std::string GetFile(void){
 }
 
 
-SensorPose RotatedSensor(float phiWindow, float thetaWindow, float theta0, float phi0){
+SensorPose RotatedSensor(float const phiWindow, float const thetaWindow, float const theta0, float const phi0){
 	const float xMax=tan(phiWindow/2), yMax = tan(thetaWindow/2), z0(1.0);
     SensorPose rotatedSensor;
 	Vector3f r0,  r1, r2;
