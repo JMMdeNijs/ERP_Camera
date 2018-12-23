@@ -22,8 +22,7 @@ Jan de Nijs Copyright (C), December 2018
 int main(int argc,char **argv) {
      
     //Get path and file image
-	//std::string imDir(GetFile());
-	std::string imDir("/home/jan/Projects/ERPCamera/Laon_Cathedral.jpg");
+	std::string imDir(GetFile());
      
     //Load equirectangle image
     CImg<unsigned char> inputImageChannels(&imDir[0]); //In CImg, RGB are stored in channels 
