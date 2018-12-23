@@ -4,4 +4,4 @@ ERP_Camera (c) 2018, Jan de Nijs
 
 This code reads an equirectangular image. Using a virtual camera a regular picture is generated. With the keyboard arrows the virtual camera can be rotated in the horizontal and vertical directions. Different implementations are given.
 
-place holder
+This Version 1.0 is implemented with threads to accelerate the code
