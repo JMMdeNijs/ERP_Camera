@@ -6,7 +6,7 @@ Copyright (C), December 2018, Jan de Nijs
 ***************************************************************************************************************************/
 
 
-#include <erplib_1.0.h>
+#include "erplib_1.0.h"
 
 std::string GetFile(void){
 	std::string fileDir, fileName;
@@ -25,7 +25,7 @@ std::string GetFile(void){
 	return fileDir;
 }
 
-void RotatedSensor(float *ptrRX, int imSize[2], int rowRange[2], float phiWindow, float thetaWindow, float phi0, float theta0){
+void RotatedSensor(float *ptrRX, int const imSize[2], int const rowRange[2], float const phiWindow, float const thetaWindow, float const phi0, float const theta0){
 	//RotatedSensor generates a grid/sensor located in the Z=1 plane and center at the (X,Y) = (0,0) and rotates the sensor over the angles phi0, theta0.
 	const int siz(imSize[0]*imSize[1]);
 	ptrRX 	+= rowRange[0]*imSize[0];      
@@ -69,9 +69,9 @@ void RotatedSensor(float *ptrRX, int imSize[2], int rowRange[2], float phiWindow
 }    
 
 
-void Tran2SphericalCoordinates(float *ptrX, float *ptrPhi, int imSize[2], int rowRange[2]){
+void Tran2SphericalCoordinates(float *ptrX, float *ptrPhi, int const imSize[2], int const rowRange[2]){
     //Tran2SphericalCoordinates calculates for each pixel of the sensor (as defined in Cartesian coordinates XYZ) the Spherical angles Phi and theta.  
-	int siz = imSize[0]*imSize[1];
+	int const siz = imSize[0]*imSize[1];
     ptrX	+= rowRange[0]*imSize[0];
 	ptrPhi 	+= rowRange[0]*imSize[0];
 	
@@ -85,9 +85,9 @@ void Tran2SphericalCoordinates(float *ptrX, float *ptrPhi, int imSize[2], int ro
         }
 }
 
-void CropImage(unsigned char *ptrCamImR, int imSize[2], int rowRange[2], unsigned char *ptrErpR, int erpSize[2], float *ptrPhi){
+void CropImage(unsigned char *ptrCamImR, int const imSize[2], int const rowRange[2], unsigned char *ptrErpR, int const erpSize[2], float *ptrPhi){
     //Given a EquiRectangular Picture (ERP), CropImage crops the ERP to the window/pixels defined by the sensor of the virtual camera given in Spherical coordinates 
-    int siz = imSize[0]*imSize[1], erpSiz = erpSize[0] * erpSize[1];
+    int const siz = imSize[0]*imSize[1], erpSiz = erpSize[0] * erpSize[1];
     ptrCamImR   += rowRange[0]*imSize[0];
     ptrPhi      += rowRange[0]*imSize[0];
      
@@ -95,14 +95,13 @@ void CropImage(unsigned char *ptrCamImR, int imSize[2], int rowRange[2], unsigne
     unsigned char *ptrErpG(ptrErpR + erpSiz), *ptrErpB(ptrErpG + erpSiz);
      
     float *ptrTheta(ptrPhi + siz);
-    const float pi(3.14159265), twopi(2*pi), halfpi = pi/2;
-    const float incPhi(twopi/erpSize[0]), incTheta(pi/erpSize[1]);
+    const float incPhi(M_2PI/erpSize[0]), incTheta(M_PI/erpSize[1]);
     int index, indexTheta, indexPhi;
  
     for (int i=rowRange[0]; i <= rowRange[1]; i++){
         for (int j=0; j < imSize[0]; j++){
-            indexPhi = round((pi + *ptrPhi++)/incPhi);
-            indexTheta = round((halfpi - *ptrTheta++)/incTheta);
+            indexPhi = round((M_PI + *ptrPhi++)/incPhi);
+            indexTheta = round((M_PI_2 - *ptrTheta++)/incTheta);
             index = indexTheta*erpSize[0]+indexPhi;
  
             if (index < 0) index =0;
