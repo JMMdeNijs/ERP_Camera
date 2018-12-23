@@ -13,14 +13,13 @@ Copyright (C), December 2018, Jan de Nijs
 
 *****************************************************************************************/
 
-#include "../ERPlib/erplib_1.0.h"
+#include "erplib_1.0.h"
 
 
 int main(int argc,char **argv) {
     
 	std::string imDir(GetFile());
-	//string imDir ="D:/Projects/ERPCamera/Laon_Cathedral.jpg";
-    
+	
 	//Load and display equirectangle image
     CImg<unsigned char> image(&imDir[0]);
     CImgDisplay main_disp, sec_disp;
@@ -43,8 +42,8 @@ int main(int argc,char **argv) {
 	std::string time_interval;
 	
 	//Colors information in display
-	unsigned char yellow[3] = {0, 255, 255}, black[3] = {0, 0, 0};
-	
+	unsigned char const yellow[3] = {0, 255, 255}, black[3] = {0, 0, 0};
+
 	//Show-hide info bar (help)
 	bool show_hide(true);
 	
